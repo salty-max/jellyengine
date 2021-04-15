@@ -1,7 +1,11 @@
 import Engine from './lib/Engine';
 
-window.onload = function () {
-    const engine = new Engine();
+const engine: Engine = new Engine();
 
-    engine.start();
+window.onload = function () {
+    engine.start(512, 512);
 };
+
+// window.onresize = function () {
+//     engine.resize();
+// };

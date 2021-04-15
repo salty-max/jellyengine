@@ -104,14 +104,27 @@ class Engine {
 
     /**
      * @desc Starts the engine
+     * @param {number|undefined} [width] The game width
+     * @param {number|undefined} [height] The game height
      * @return {void} nothing
      */
-    public start(): void {
-        this._canvas = GLUtils.initialize();
-        gl.clearColor(...Palette[Colors.DarkBlue]);
+    public start(width?: number, height?: number): void {
+        this._canvas = GLUtils.initialize(undefined, width, height);
+        gl.clearColor(...Palette[Colors.TrueBlue]);
 
         console.log('Engine started...');
         this.loop();
+    }
+
+    /**
+     * @desc Resizes the canvas to fit the window
+     * @return {void}
+     */
+    public resize(): void {
+        if (this._canvas !== undefined) {
+            this._canvas.width = window.innerWidth;
+            this._canvas.height = window.innerHeight;
+        }
     }
 
     @Autobind
