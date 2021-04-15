@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Global</title>
+  <title> GL.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,176 +79,57 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Source</p>
+                    <h1>GL.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">WebGLRenderingContext</span>
-
-
-    </span>
-
-<h4 class="name" id="gl">
-    <a class="href-link" href="#gl">#</a>
-    
-    <span class="code-name">
-        gl
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    The WebGL rendering context
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="GL.ts.html" class="button">View Source</a>
-            <span>
-                <a href="GL.ts.html">GL.ts</a>, <a href="GL.ts.html#line6">line 6</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @desc The WebGL rendering context
+ * @type {WebGLRenderingContext}
+ */
+export let gl: WebGLRenderingContext;
+
+/**
+ * @desc Responsible for setting up a WebGL rendering context
+ */
+export class GL {
+    /**
+     * @desc Initializes WebGL
+     * @param {string|undefined} [elementId] The HTML element to render into
+     * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
+     */
+    public static initialize(elementId?: string): HTMLCanvasElement {
+        let canvas: HTMLCanvasElement;
+
+        if (elementId !== undefined) {
+            canvas = document.getElementById(elementId) as HTMLCanvasElement;
+
+            if (canvas === undefined) {
+                throw new Error(`Cannot find a canvas element named ${elementId}`);
+            }
+        } else {
+            canvas = document.createElement('canvas') as HTMLCanvasElement;
+            document.body.appendChild(canvas);
+        }
+
+        gl = canvas.getContext('webgl')!;
+
+        if (gl === undefined) {
+            throw new Error('Unable to initialize WebGL');
+        }
+
+        return canvas;
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

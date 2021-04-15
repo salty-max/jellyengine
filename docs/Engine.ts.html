@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Engine.html">Engine</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Engine.html">Engine</a></li><li><a href="GL.html">GL</a></li></ul><h3>Global</h3><ul><li><a href="global.html#gl">gl</a></li></ul></div>
                 
             </nav>
         </div>
@@ -89,19 +89,19 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @Filename Engine.ts */
-
-import { Autobind } from '../utils/Autobind';
+            <pre class="prettyprint source linenums"><code>import { Autobind } from '../utils/Autobind';
+import { GL } from './GL';
 
 /**
- * @author Maxime Blanc &lt;max@jellycat.fr>
  * @desc The Engine takes care of the main game loop
  */
 class Engine {
     private _count: number;
+    private _canvas: HTMLCanvasElement;
 
     public constructor() {
         this._count = 0;
+        this._canvas = GL.initialize();
         console.log('Engine started...');
     }
 

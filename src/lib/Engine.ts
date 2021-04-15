@@ -1,16 +1,16 @@
-/** @Filename Engine.ts */
-
 import { Autobind } from '../utils/Autobind';
+import { GL } from './GL';
 
 /**
- * @author Maxime Blanc <max@jellycat.fr>
  * @desc The Engine takes care of the main game loop
  */
 class Engine {
     private _count: number;
+    private _canvas: HTMLCanvasElement;
 
     public constructor() {
         this._count = 0;
+        this._canvas = GL.initialize();
         console.log('Engine started...');
     }
 

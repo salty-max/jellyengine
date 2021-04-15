@@ -8,7 +8,6 @@ module.exports = merge(common, {
     devServer: {
         contentBase: './dist',
         hot: true,
-        stats: 'verbose',
         overlay: {
             warnings: true,
             errors: true,

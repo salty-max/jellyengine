@@ -1,7 +1,7 @@
 import Engine from './lib/Engine';
 
 window.onload = function () {
-    const e = new Engine();
-    e.start();
-    document.body.innerHTML += 'Prout';
+    const engine = new Engine();
+
+    engine.start();
 };
