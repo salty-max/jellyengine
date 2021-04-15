@@ -1,3 +1,11 @@
+/**
+ * AUTOBIND DECORATOR
+ *
+ * JELLY ENGINE
+ * Maxime Blanc
+ * https://github.com/salty-max
+ */
+
 export function Autobind(
     _: unknown,
     __: string,

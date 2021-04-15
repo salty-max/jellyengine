@@ -1,12 +1,23 @@
+/** @Filename Engine.ts */
+
 import { Autobind } from '../utils/Autobind';
 
-export default class Engine {
+/**
+ * @author Maxime Blanc <max@jellycat.fr>
+ * @desc The Engine takes care of the main game loop
+ */
+class Engine {
     private _count: number;
 
     public constructor() {
         this._count = 0;
+        console.log('Engine started...');
     }
 
+    /**
+     * @desc Starts the engine
+     * @return {void} nothing
+     */
     public start(): void {
         this.loop();
     }
@@ -18,3 +29,5 @@ export default class Engine {
         requestAnimationFrame(this.loop);
     }
 }
+
+export default Engine;

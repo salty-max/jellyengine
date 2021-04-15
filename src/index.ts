@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 import Engine from './lib/Engine';
 
 window.onload = function () {
