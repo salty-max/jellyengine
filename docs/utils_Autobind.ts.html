@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Engine.html">Engine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#start">start</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Engine.html">Engine</a></li><li><a href="GLUtils.html">GLUtils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
                 
             </nav>
         </div>
@@ -90,13 +90,12 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * AUTOBIND DECORATOR
- *
- * JELLY ENGINE
- * Maxime Blanc
- * https://github.com/salty-max
+ * @desc Decorator to auto bing this on a function
+ * @param {unknown} _
+ * @param {string} __
+ * @param {PropertyDescriptor} descriptor
+ * @returns {PropertyDescriptor}
  */
-
 export function Autobind(
     _: unknown,
     __: string,

@@ -1,11 +1,10 @@
 /**
- * AUTOBIND DECORATOR
- *
- * JELLY ENGINE
- * Maxime Blanc
- * https://github.com/salty-max
+ * @desc Decorator to auto bing this on a function
+ * @param {unknown} _
+ * @param {string} __
+ * @param {PropertyDescriptor} descriptor
+ * @returns {PropertyDescriptor}
  */
-
 export function Autobind(
     _: unknown,
     __: string,

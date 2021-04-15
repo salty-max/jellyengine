@@ -7,7 +7,7 @@ export let gl: WebGLRenderingContext;
 /**
  * @desc Responsible for setting up a WebGL rendering context
  */
-export class GL {
+export class GLUtils {
     /**
      * @desc Initializes WebGL
      * @param {string|undefined} [elementId] The HTML element to render into

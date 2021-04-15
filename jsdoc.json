@@ -7,7 +7,7 @@
     },
     "source": {
         "include": [
-            "src/lib"
+            "src"
         ],
         "includePattern": "\\.(jsx|js|ts|tsx)$",
         "excludePattern": "(^|\\/|\\\\)_"

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> lib/Engine.ts</title>
+  <title> lib/GL.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/Engine.ts</h1>
+                    <h1>lib/GL.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,44 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Autobind } from '../utils/Autobind';
-import { Colors, Palette } from '../utils/palette';
-import { gl, GLUtils } from './GL';
+            <pre class="prettyprint source linenums"><code>/**
+ * @desc The WebGL rendering context
+ * @type {WebGLRenderingContext}
+ */
+export let gl: WebGLRenderingContext;
 
 /**
- * @desc The Engine takes care of the main game loop
+ * @desc Responsible for setting up a WebGL rendering context
  */
-class Engine {
-    private _canvas: HTMLCanvasElement | undefined;
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    public constructor() {}
-
+export class GLUtils {
     /**
-     * @desc Starts the engine
-     * @return {void} nothing
+     * @desc Initializes WebGL
+     * @param {string|undefined} [elementId] The HTML element to render into
+     * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
      */
-    public start(): void {
-        this._canvas = GLUtils.initialize();
-        gl.clearColor(...Palette[Colors.DarkBlue]);
+    public static initialize(elementId?: string): HTMLCanvasElement {
+        let canvas: HTMLCanvasElement;
 
-        console.log('Engine started...');
-        this.loop();
-    }
+        if (elementId !== undefined) {
+            canvas = document.getElementById(elementId) as HTMLCanvasElement;
 
-    @Autobind
-    private loop(): void {
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        requestAnimationFrame(this.loop);
+            if (canvas === undefined) {
+                throw new Error(`Cannot find a canvas element named ${elementId}`);
+            }
+        } else {
+            canvas = document.createElement('canvas') as HTMLCanvasElement;
+            document.body.appendChild(canvas);
+        }
+
+        gl = canvas.getContext('webgl')!;
+
+        if (gl === undefined) {
+            throw new Error('Unable to initialize WebGL');
+        }
+
+        return canvas;
     }
 }
-
-export default Engine;
 </code></pre>
         </article>
     </section>
