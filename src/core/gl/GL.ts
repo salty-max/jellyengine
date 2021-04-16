@@ -11,9 +11,9 @@ export class GLUtils {
     /**
      * @static
      * @desc Initializes WebGL
-     * @param {number} [width] The canvas width
-     * @param {number} [height] The canvas height
-     * @param {string|undefined} [elementId] The HTML element to render into
+     * @param {number} width The canvas width
+     * @param {number} height The canvas height
+     * @param {string} [elementId] The HTML element to render into
      * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
      */
     public static initialize(width: number, height: number, elementId?: string): HTMLCanvasElement {
@@ -39,5 +39,31 @@ export class GLUtils {
         }
 
         return canvas;
+    }
+
+    /**
+     * @static
+     * @desc Gets the byte size of a given data type
+     * @param {number} dataType The data type to measure
+     * @returns {number} The byte size of the data type
+     */
+    public static getByteSize(dataType: number): number {
+        switch (dataType) {
+            case gl.FLOAT:
+            case gl.INT:
+            case gl.UNSIGNED_INT:
+                return 4;
+                break;
+            case gl.SHORT:
+            case gl.UNSIGNED_SHORT:
+                return 2;
+                break;
+            case gl.BYTE:
+            case gl.UNSIGNED_BYTE:
+                return 1;
+                break;
+            default:
+                throw new Error(`Unrecognized data type ${dataType}`);
+        }
     }
 }

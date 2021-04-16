@@ -1,6 +1,7 @@
 import { Autobind } from '../utils/Autobind';
-import { Colors, Palette } from '../utils/palette';
+import { Color } from '../utils/palette';
 import { gl, GLUtils } from './gl/GL';
+import { AttributeInfo, GLBuffer } from './gl/GLBuffer';
 import { Shader } from './gl/Shader';
 
 /**
@@ -11,22 +12,22 @@ class Engine {
     private _gameWidth = 0;
     private _gameHeight = 0;
     private _shader!: Shader;
-    private _buffer!: WebGLBuffer;
+    private _buffer!: GLBuffer;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     public constructor() {}
 
     /**
      * @desc Starts the engine
-     * @param {number|undefined} [width] The game width
-     * @param {number|undefined} [height] The game height
+     * @param {number} [width] The game width
+     * @param {number} [height] The game height
      * @return {void} nothing
      */
     public start(width?: number, height?: number): void {
         this._gameWidth = width || window.innerWidth;
         this._gameHeight = height || window.innerHeight;
         this._canvas = GLUtils.initialize(this._gameWidth, this._gameHeight);
-        gl.clearColor(...Palette[Colors.TrueBlue]);
+        gl.clearColor(...Color('dark-blue'));
         this.loadShaders();
         this._shader?.use();
         this.createBuffer();
@@ -50,20 +51,26 @@ class Engine {
     @Autobind
     private loop(): void {
         gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
 
-        const positionLocation = this._shader.getAttributeLocation('a_position');
+        // Set uniforms
+        const colorPosition = this._shader.getUniformLocation('u_color');
+        gl.uniform4f(colorPosition, ...Color('true-blue'));
 
-        gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(positionLocation);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        this._buffer.bind();
+        this._buffer.draw();
 
         requestAnimationFrame(this.loop);
     }
 
     private createBuffer(): void {
-        this._buffer = gl.createBuffer() as WebGLBuffer;
+        this._buffer = new GLBuffer(3);
+
+        const positionAttribute = new AttributeInfo(
+            this._shader.getAttributeLocation('a_position'),
+            3,
+            0,
+        );
+        this._buffer.addAttributeLocation(positionAttribute);
 
         const vertices = [
             // x, y, z
@@ -78,13 +85,9 @@ class Engine {
             0,
         ];
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-        const positionLocation = this._shader.getAttributeLocation('a_position');
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl.disableVertexAttribArray(positionLocation);
+        this._buffer.pushBackData(vertices);
+        this._buffer.upload();
+        this._buffer.unbind();
     }
 
     private loadShaders(): void {
@@ -99,8 +102,10 @@ class Engine {
         const fragmentShaderSource = `
             precision mediump float;
 
+            uniform vec4 u_color;
+
             void main() {
-                gl_FragColor = vec4(1.0);
+                gl_FragColor = u_color;
             }
         `;
 

@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Engine.html">Engine</a></li><li><a href="GLUtils.html">GLUtils</a></li><li><a href="Shader.html">Shader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AttributeInfo.html">AttributeInfo</a></li><li><a href="Engine.html">Engine</a></li><li><a href="GLBuffer.html">GLBuffer</a></li><li><a href="GLUtils.html">GLUtils</a></li><li><a href="Shader.html">Shader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Color">Color</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
                 
             </nav>
         </div>
@@ -102,9 +102,9 @@ export class GLUtils {
     /**
      * @static
      * @desc Initializes WebGL
-     * @param {number} [width] The canvas width
-     * @param {number} [height] The canvas height
-     * @param {string|undefined} [elementId] The HTML element to render into
+     * @param {number} width The canvas width
+     * @param {number} height The canvas height
+     * @param {string} [elementId] The HTML element to render into
      * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
      */
     public static initialize(width: number, height: number, elementId?: string): HTMLCanvasElement {
@@ -130,6 +130,32 @@ export class GLUtils {
         }
 
         return canvas;
+    }
+
+    /**
+     * @static
+     * @desc Gets the byte size of a given data type
+     * @param {number} dataType The data type to measure
+     * @returns {number} The byte size of the data type
+     */
+    public static getByteSize(dataType: number): number {
+        switch (dataType) {
+            case gl.FLOAT:
+            case gl.INT:
+            case gl.UNSIGNED_INT:
+                return 4;
+                break;
+            case gl.SHORT:
+            case gl.UNSIGNED_SHORT:
+                return 2;
+                break;
+            case gl.BYTE:
+            case gl.UNSIGNED_BYTE:
+                return 1;
+                break;
+            default:
+                throw new Error(`Unrecognized data type ${dataType}`);
+        }
     }
 }
 </code></pre>

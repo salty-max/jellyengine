@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> core/gl/Buffer.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Jelly Engine</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AttributeInfo.html">AttributeInfo</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Engine.html">Engine</a></li><li><a href="GLUtils.html">GLUtils</a></li><li><a href="Shader.html">Shader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>core/gl/Buffer.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { gl, GLUtils } from './GL';
+
+/**
+ * @desc Represents the information needed for a GLBuffer attribute
+ */
+export class AttributeInfo {
+    /**
+     * @desc The location of this attribute
+     */
+    public location: number;
+    /**
+     * @desc The size (number of elements) in this attribute (i.e. Vector3 = 3)
+     */
+    public size: number;
+    /**
+     * @desc The number of elements from the beginning of the buffer
+     */
+    public offset: number;
+
+    /**
+     * @desc Creates a struct containing an attribute informations
+     * @param {number} location The location of the attribute
+     * @param {number} size The size of the attribute
+     * @param {number} offset The number of elements from the beginning of the buffer
+     */
+    public constructor(location: number, size: number, offset: number) {
+        this.location = location;
+        this.size = size;
+        this.offset = offset;
+    }
+}
+
+/**
+ * @desc Represents a WebGLBuffer
+ */
+export class Buffer {
+    private _hasAttributeLocation = false;
+    private _elementSize: number;
+    private _stride: number;
+    private _buffer: WebGLBuffer;
+
+    private _targetBufferType: number;
+    private _dataType: number;
+    private _mode: number;
+    private _typeSize: number;
+
+    private _data: number[] = [];
+    private _attributes: AttributeInfo[] = [];
+
+    /**
+     * @desc Creates a new GL buffer
+     * @param {number} elementSize The size of each element in this buffer
+     * @param {number} [dataType=gl.FLOAT] The data type of this buffer
+     * @param {number} [targetBufferType=gl.ARRAY_BUFFER] The buffer target type. Can be either gl.ARRAY_BUFFER or gl.ELEMENT_ARRAY_BUFFER
+     * @param {number} [mode=gl.TRIANGLES] The drawing mode of this buffer (i.e. gl.TRIANGLES or gl.LINES)
+     */
+    public constructor(
+        elementSize: number,
+        dataType: number = gl.FLOAT,
+        targetBufferType: number = gl.ARRAY_BUFFER,
+        mode: number = gl.TRIANGLES,
+    ) {
+        this._elementSize = elementSize;
+        this._dataType = dataType;
+        this._targetBufferType = targetBufferType;
+        this._mode = mode;
+
+        // Determine byte size
+        this._typeSize = GLUtils.getByteSize(this._dataType);
+        this._stride = this._elementSize * this._typeSize;
+        this._buffer = gl.createBuffer() as WebGLBuffer;
+    }
+
+    /**
+     * @desc Destroy this buffer to free some memory
+     * @returns {void}
+     */
+    public destroy(): void {
+        gl.deleteBuffer(this._buffer);
+    }
+
+    /**
+     * @desc Binds this buffer
+     * @param {boolean} normalized Indicates of the data should be normalized
+     * @returns {void}
+     */
+    public bind(normalized: boolean): void {
+        gl.bindBuffer(this._targetBufferType, this._buffer);
+
+        if (this._hasAttributeLocation) {
+            this._attributes.forEach((at) => {
+                gl.vertexAttribPointer(
+                    at.location,
+                    at.size,
+                    this._dataType,
+                    normalized,
+                    this._stride,
+                    at.offset * this._typeSize,
+                );
+                gl.enableVertexAttribArray(at.location);
+            });
+        }
+    }
+
+    /**
+     * @desc Unbinds this buffer
+     * @returns {void}
+     */
+    public unbind(): void {
+        this._attributes.forEach((at) => {
+            gl.disableVertexAttribArray(at.location);
+        });
+        gl.bindBuffer(this._targetBufferType, this._buffer);
+    }
+
+    /**
+     * @desc Adds an attribute to this buffer
+     * @param {AttributeInfo} info The attribute to add to the buffer
+     * @returns {void}
+     */
+    public addAttributeLocation(info: AttributeInfo): void {
+        this._hasAttributeLocation = true;
+        this._attributes.push(info);
+    }
+
+    /**
+     * @desc Adds data to this buffer
+     * @param {Array&lt;number>} data The data to add to the buffer
+     */
+    public pushBackData(data: number[]): void {
+        gl.bindBuffer(this._targetBufferType, this._buffer);
+
+        let bufferData: ArrayBufferView = new Float32Array(this._data);
+
+        switch (this._dataType) {
+            case gl.FLOAT:
+                bufferData = new Float32Array(this._data);
+                break;
+            case gl.INT:
+                bufferData = new Int32Array(this._data);
+                break;
+            case gl.UNSIGNED_INT:
+                bufferData = new Uint32Array(this._data);
+                break;
+            case gl.SHORT:
+                bufferData = new Int16Array(this._data);
+                break;
+            case gl.UNSIGNED_SHORT:
+                bufferData = new Uint16Array(this._data);
+                break;
+            case gl.BYTE:
+                bufferData = new Int8Array(this._data);
+                break;
+            case gl.UNSIGNED_BYTE:
+                bufferData = new Uint8Array(this._data);
+                break;
+        }
+
+        gl.bufferData(this._targetBufferType, bufferData, gl.STATIC_DRAW);
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

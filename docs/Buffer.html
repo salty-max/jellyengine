@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Shader</title>
+  <title> Buffer</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -70,7 +70,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AttributeInfo.html">AttributeInfo</a></li><li><a href="Engine.html">Engine</a></li><li><a href="GLBuffer.html">GLBuffer</a></li><li><a href="GLUtils.html">GLUtils</a></li><li><a href="Shader.html">Shader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Color">Color</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="AttributeInfo.html">AttributeInfo</a></li><li><a href="Buffer.html">Buffer</a></li><li><a href="Engine.html">Engine</a></li><li><a href="GLUtils.html">GLUtils</a></li><li><a href="Shader.html">Shader</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Autobind">Autobind</a></li><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#Palette">Palette</a></li><li><a href="global.html#rgbaToGL">rgbaToGL</a></li></ul></div>
                 
             </nav>
         </div>
@@ -78,7 +78,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Class</p>
-                    <h1>Shader</h1>
+                    <h1>Buffer</h1>
                 </header>
                 
 
@@ -89,7 +89,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Shader<span class="signature">(name, vertexSource, fragmentSource)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Buffer<span class="signature">(elementSize, dataType<span class="signature-attributes">opt</span>, targetBufferType<span class="signature-attributes">opt</span>, mode<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -108,12 +108,12 @@
 
 
     
-    <h4 class="name" id="Shader">
-        <a class="href-link" href="#Shader">#</a>
+    <h4 class="name" id="Buffer">
+        <a class="href-link" href="#Buffer">#</a>
         
         <span class="code-name">
             
-                new Shader<span class="signature">(name, vertexSource, fragmentSource)</span><span class="type-signature"></span>
+                new Buffer<span class="signature">(elementSize, dataType<span class="signature-attributes">opt</span>, targetBufferType<span class="signature-attributes">opt</span>, mode<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -122,7 +122,7 @@
     
     
     <div class="description">
-        Represents a WebGL shader
+        Represents a WebGLBuffer
     </div>
     
 
@@ -147,7 +147,11 @@
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
+            
+            <th>Default</th>
             
 
             <th class="last">Description</th>
@@ -160,23 +164,35 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>name</code></td>
+      <td class="name"><code>elementSize</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
   
   </td>
 
   
+      <td class="attributes">
+      
 
+      
+
+      
+      </td>
   
 
-  <td class="description last">The shader name</td>
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last">The size of each element in this buffer</td>
 </tr>
 
 
@@ -185,23 +201,39 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>vertexSource</code></td>
+      <td class="name"><code>dataType</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
   
   </td>
 
   
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
 
+      
+
+      
+      </td>
   
 
-  <td class="description last">The source of the vertex shader</td>
+  
+      <td class="default">
+      
+          gl.FLOAT
+      
+      </td>
+  
+
+  <td class="description last">The data type of this buffer</td>
 </tr>
 
 
@@ -210,23 +242,80 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>fragmentSource</code></td>
+      <td class="name"><code>targetBufferType</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
   
   </td>
 
   
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
 
+      
+
+      
+      </td>
   
 
-  <td class="description last">The source of the fragment shader</td>
+  
+      <td class="default">
+      
+          gl.ARRAY_BUFFER
+      
+      </td>
+  
+
+  <td class="description last">The buffer target type. Can be either gl.ARRAY_BUFFER or gl.ELEMENT_ARRAY_BUFFER</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mode</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          gl.TRIANGLES
+      
+      </td>
+  
+
+  <td class="description last">The drawing mode of this buffer (i.e. gl.TRIANGLES or gl.LINES)</td>
 </tr>
 
 
@@ -272,9 +361,9 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_Shader.ts.html" class="button">View Source</a>
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_Shader.ts.html">core/gl/Shader.ts</a>, <a href="core_gl_Shader.ts.html#line6">line 6</a>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line22">line 22</a>
             </span>
         </p>
     
@@ -316,7 +405,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="Shader.html">Shader</a></dt>
+            <dt><a href="Buffer.html">Buffer</a></dt>
             <dd></dd>
         </dl>
     
@@ -328,82 +417,6 @@
     
 
     
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-<h4 class="name" id="name">
-    <a class="href-link" href="#name">#</a>
-    
-    <span class="code-name">
-        name
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    The name of the shader
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="core_gl_Shader.ts.html" class="button">View Source</a>
-            <span>
-                <a href="core_gl_Shader.ts.html">core/gl/Shader.ts</a>, <a href="core_gl_Shader.ts.html#line27">line 27</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
 
     
         <div class='vertical-section'>
@@ -414,12 +427,12 @@
 
 
     
-    <h4 class="name" id="getAttributeLocation">
-        <a class="href-link" href="#getAttributeLocation">#</a>
+    <h4 class="name" id="addAttributeLocation">
+        <a class="href-link" href="#addAttributeLocation">#</a>
         
         <span class="code-name">
             
-                getAttributeLocation<span class="signature">(name)</span><span class="type-signature"> &rarr; {number}</span>
+                addAttributeLocation<span class="signature">(info)</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
@@ -428,7 +441,7 @@
     
     
     <div class="description">
-        Gets the location of an attribute with the provided name
+        Adds an attribute to this buffer
     </div>
     
 
@@ -466,13 +479,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>name</code></td>
+      <td class="name"><code>info</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type"><a href="AttributeInfo.html">AttributeInfo</a></span>
 
 
   
@@ -482,7 +495,7 @@
 
   
 
-  <td class="description last">The name of the attribute</td>
+  <td class="description last">The attribute to add to the buffer</td>
 </tr>
 
 
@@ -528,9 +541,9 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_Shader.ts.html" class="button">View Source</a>
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_Shader.ts.html">core/gl/Shader.ts</a>, <a href="core_gl_Shader.ts.html#line42">line 42</a>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line79">line 79</a>
             </span>
         </p>
     
@@ -561,13 +574,11 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'>The attribute location</div>
-    
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">number</span>
+<span class="param-type">void</span>
 
 
     </div>
@@ -587,12 +598,12 @@
 
 
     
-    <h4 class="name" id="getUniformLocation">
-        <a class="href-link" href="#getUniformLocation">#</a>
+    <h4 class="name" id="bind">
+        <a class="href-link" href="#bind">#</a>
         
         <span class="code-name">
             
-                getUniformLocation<span class="signature">(name)</span><span class="type-signature"> &rarr; {number}</span>
+                bind<span class="signature">(normalized)</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
@@ -601,7 +612,7 @@
     
     
     <div class="description">
-        Gets the location of a uniform with the provided name
+        Binds this buffer
     </div>
     
 
@@ -639,13 +650,13 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>name</code></td>
+      <td class="name"><code>normalized</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">boolean</span>
 
 
   
@@ -655,7 +666,7 @@
 
   
 
-  <td class="description last">The name of the uniform</td>
+  <td class="description last">Indicates of the data should be normalized</td>
 </tr>
 
 
@@ -701,9 +712,9 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_Shader.ts.html" class="button">View Source</a>
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_Shader.ts.html">core/gl/Shader.ts</a>, <a href="core_gl_Shader.ts.html#line53">line 53</a>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line55">line 55</a>
             </span>
         </p>
     
@@ -734,13 +745,11 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'>The uniform location</div>
-    
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">number</span>
+<span class="param-type">void</span>
 
 
     </div>
@@ -760,12 +769,12 @@
 
 
     
-    <h4 class="name" id="use">
-        <a class="href-link" href="#use">#</a>
+    <h4 class="name" id="destroy">
+        <a class="href-link" href="#destroy">#</a>
         
         <span class="code-name">
             
-                use<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+                destroy<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
             
         </span>
     </h4>
@@ -774,7 +783,7 @@
     
     
     <div class="description">
-        Tells WebGL to use the shader
+        Destroy this buffer to free some memory
     </div>
     
 
@@ -823,9 +832,277 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_Shader.ts.html" class="button">View Source</a>
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_Shader.ts.html">core/gl/Shader.ts</a>, <a href="core_gl_Shader.ts.html#line34">line 34</a>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line47">line 47</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">void</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="pushBackData">
+        <a class="href-link" href="#pushBackData">#</a>
+        
+        <span class="code-name">
+            
+                pushBackData<span class="signature">(data)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Adds data to this buffer
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Array.&lt;number></span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The data to add to the buffer</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
+            <span>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line87">line 87</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="unbind">
+        <a class="href-link" href="#unbind">#</a>
+        
+        <span class="code-name">
+            
+                unbind<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Unbinds this buffer
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core_gl_Buffer.ts.html" class="button">View Source</a>
+            <span>
+                <a href="core_gl_Buffer.ts.html">core/gl/Buffer.ts</a>, <a href="core_gl_Buffer.ts.html#line68">line 68</a>
             </span>
         </p>
     

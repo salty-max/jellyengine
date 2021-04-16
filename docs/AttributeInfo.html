@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> GLUtils</title>
+  <title> AttributeInfo</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -78,7 +78,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Class</p>
-                    <h1>GLUtils</h1>
+                    <h1>AttributeInfo</h1>
                 </header>
                 
 
@@ -89,7 +89,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>GLUtils<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>AttributeInfo<span class="signature">(location, size, offset)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -108,12 +108,12 @@
 
 
     
-    <h4 class="name" id="GLUtils">
-        <a class="href-link" href="#GLUtils">#</a>
+    <h4 class="name" id="AttributeInfo">
+        <a class="href-link" href="#AttributeInfo">#</a>
         
         <span class="code-name">
             
-                new GLUtils<span class="signature">()</span><span class="type-signature"></span>
+                new AttributeInfo<span class="signature">(location, size, offset)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -122,7 +122,7 @@
     
     
     <div class="description">
-        Responsible for setting up a WebGL rendering context
+        Represents the information needed for a GLBuffer attribute
     </div>
     
 
@@ -133,6 +133,107 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>location</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The location of the attribute</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>size</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The size of the attribute</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>offset</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The number of elements from the beginning of the buffer</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -171,9 +272,9 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_GL.ts.html" class="button">View Source</a>
+            <a href="core_gl_GLBuffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_GL.ts.html">core/gl/GL.ts</a>, <a href="core_gl_GL.ts.html#line10">line 10</a>
+                <a href="core_gl_GLBuffer.ts.html">core/gl/GLBuffer.ts</a>, <a href="core_gl_GLBuffer.ts.html#line6">line 6</a>
             </span>
         </p>
     
@@ -212,7 +313,12 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
 
+        <dl>
+            <dt><a href="AttributeInfo.html">AttributeInfo</a></dt>
+            <dd></dd>
+        </dl>
     
 
     
@@ -223,92 +329,33 @@
 
     
         <div class='vertical-section'>
-            <h1>Methods</h1>
+            <h1>Members</h1>
             <div class="members">
             
                 <div class="member">
 
-
-    
-    <h4 class="name" id=".getByteSize">
-        <a class="href-link" href="#.getByteSize">#</a>
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
         
-            
-                <span class='tag'>static</span>
-            
-        
-        <span class="code-name">
-            
-                getByteSize<span class="signature">(dataType)</span><span class="type-signature"> &rarr; {number}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Gets the byte size of a given data type
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>dataType</code></td>
-  
-
-  <td class="type">
-  
-      
 <span class="param-type">number</span>
 
 
-  
-  </td>
+    </span>
 
-  
+<h4 class="name" id="location">
+    <a class="href-link" href="#location">#</a>
+    
+    <span class="code-name">
+        location
+    </span>
+    
+</h4>
 
-  
-
-  <td class="description last">The data type to measure</td>
-</tr>
 
 
-        
-        </tbody>
-    </table>
+
+<div class="description">
+    The location of this attribute
 </div>
 
 
@@ -348,55 +395,14 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_GL.ts.html" class="button">View Source</a>
+            <a href="core_gl_GLBuffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_GL.ts.html">core/gl/GL.ts</a>, <a href="core_gl_GL.ts.html#line45">line 45</a>
+                <a href="core_gl_GLBuffer.ts.html">core/gl/GLBuffer.ts</a>, <a href="core_gl_GLBuffer.ts.html#line144">line 144</a>
             </span>
         </p>
     
 </dl>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    <div class='param-desc column is-7'>The byte size of the data type</div>
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">number</span>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
 
 
 
@@ -405,165 +411,28 @@
             
                 <div class="member">
 
-
-    
-    <h4 class="name" id=".initialize">
-        <a class="href-link" href="#.initialize">#</a>
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
         
-            
-                <span class='tag'>static</span>
-            
-        
-        <span class="code-name">
-            
-                initialize<span class="signature">(width, height, elementId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {HTMLCanvasElement}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Initializes WebGL
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-            <th>Attributes</th>
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>width</code></td>
-  
-
-  <td class="type">
-  
-      
 <span class="param-type">number</span>
 
 
-  
-  </td>
+    </span>
 
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-
-  <td class="description last">The canvas width</td>
-</tr>
+<h4 class="name" id="offset">
+    <a class="href-link" href="#offset">#</a>
+    
+    <span class="code-name">
+        offset
+    </span>
+    
+</h4>
 
 
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>height</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">number</span>
 
 
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-
-  <td class="description last">The canvas height</td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>elementId</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-
-  <td class="description last">The HTML element to render into</td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
+<div class="description">
+    The number of elements from the beginning of the buffer
 </div>
 
 
@@ -603,9 +472,9 @@
 
     
         <p class="tag-source">
-            <a href="core_gl_GL.ts.html" class="button">View Source</a>
+            <a href="core_gl_GLBuffer.ts.html" class="button">View Source</a>
             <span>
-                <a href="core_gl_GL.ts.html">core/gl/GL.ts</a>, <a href="core_gl_GL.ts.html#line19">line 19</a>
+                <a href="core_gl_GLBuffer.ts.html">core/gl/GLBuffer.ts</a>, <a href="core_gl_GLBuffer.ts.html#line156">line 156</a>
             </span>
         </p>
     
@@ -615,43 +484,79 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
+</div>
             
-                    
+                <div class="member">
 
-<div class="columns">
-    
-    <div class='param-desc column is-7'>The canvas where WebGL is rendered into</div>
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
         
-<span class="param-type">HTMLCanvasElement</span>
+<span class="param-type">number</span>
 
 
-    </div>
+    </span>
+
+<h4 class="name" id="size">
+    <a class="href-link" href="#size">#</a>
     
+    <span class="code-name">
+        size
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    The size (number of elements) in this attribute (i.e. Vector3 = 3)
 </div>
 
-                
-        </div>
-    </div>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core_gl_GLBuffer.ts.html" class="button">View Source</a>
+            <span>
+                <a href="core_gl_GLBuffer.ts.html">core/gl/GLBuffer.ts</a>, <a href="core_gl_GLBuffer.ts.html#line150">line 150</a>
+            </span>
+        </p>
+    
+</dl>
+
 
 
 
@@ -660,6 +565,8 @@
             
             </div>
         </div>
+    
+
     
 
     
