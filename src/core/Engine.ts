@@ -8,11 +8,15 @@ import { Shader } from './gl/Shader';
  */
 class Engine {
     private _canvas: HTMLCanvasElement | undefined;
+    private _gameWidth = 0;
+    private _gameHeight = 0;
     private _shader: Shader | null;
+    private _buffer: WebGLBuffer | null;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     public constructor() {
         this._shader = null;
+        this._buffer = null;
     }
 
     /**
@@ -22,10 +26,15 @@ class Engine {
      * @return {void} nothing
      */
     public start(width?: number, height?: number): void {
-        this._canvas = GLUtils.initialize(undefined, width, height);
+        this._gameWidth = width || window.innerWidth;
+        this._gameHeight = height || window.innerHeight;
+        this._canvas = GLUtils.initialize(this._gameWidth, this._gameHeight);
         gl.clearColor(...Palette[Colors.TrueBlue]);
         this.loadShaders();
         this._shader?.use();
+        this.createBuffer();
+
+        this.resize();
         this.loop();
     }
 
@@ -34,16 +43,47 @@ class Engine {
      * @return {void}
      */
     public resize(): void {
-        if (this._canvas !== undefined) {
-            this._canvas.width = window.innerWidth;
-            this._canvas.height = window.innerHeight;
+        if (this._canvas) {
+            this._canvas.width = this._gameWidth;
+            this._canvas.height = this._gameHeight;
+            gl.viewport(0, 0, this._canvas.width, this._canvas.height);
         }
     }
 
     @Autobind
     private loop(): void {
         gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
+        gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(0);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+
         requestAnimationFrame(this.loop);
+    }
+
+    private createBuffer(): void {
+        this._buffer = gl.createBuffer();
+
+        const vertices = [
+            // x, y, z
+            0,
+            0,
+            0,
+            0,
+            0.5,
+            0,
+            0.5,
+            0.5,
+            0,
+        ];
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
+        gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(0);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.disableVertexAttribArray(0);
     }
 
     private loadShaders(): void {

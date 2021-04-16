@@ -11,16 +11,12 @@ export class GLUtils {
     /**
      * @static
      * @desc Initializes WebGL
+     * @param {number} [width] The canvas width
+     * @param {number} [height] The canvas height
      * @param {string|undefined} [elementId] The HTML element to render into
-     * @param {number|undefined} [width] The canvas width
-     * @param {number|undefined} [height] The canvas height
      * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
      */
-    public static initialize(
-        elementId?: string,
-        width?: number,
-        height?: number,
-    ): HTMLCanvasElement {
+    public static initialize(width: number, height: number, elementId?: string): HTMLCanvasElement {
         let canvas: HTMLCanvasElement;
 
         if (elementId !== undefined) {
@@ -31,8 +27,8 @@ export class GLUtils {
             }
         } else {
             canvas = document.createElement('canvas') as HTMLCanvasElement;
-            canvas.width = width || window.innerWidth;
-            canvas.height = height || window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
             document.body.appendChild(canvas);
         }
 
