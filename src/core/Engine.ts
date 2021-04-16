@@ -10,14 +10,11 @@ class Engine {
     private _canvas: HTMLCanvasElement | undefined;
     private _gameWidth = 0;
     private _gameHeight = 0;
-    private _shader: Shader | null;
-    private _buffer: WebGLBuffer | null;
+    private _shader!: Shader;
+    private _buffer!: WebGLBuffer;
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    public constructor() {
-        this._shader = null;
-        this._buffer = null;
-    }
+    public constructor() {}
 
     /**
      * @desc Starts the engine
@@ -54,8 +51,11 @@ class Engine {
     private loop(): void {
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
-        gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(0);
+
+        const positionLocation = this._shader.getAttributeLocation('a_position');
+
+        gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(positionLocation);
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
 
@@ -63,7 +63,7 @@ class Engine {
     }
 
     private createBuffer(): void {
-        this._buffer = gl.createBuffer();
+        this._buffer = gl.createBuffer() as WebGLBuffer;
 
         const vertices = [
             // x, y, z
@@ -79,11 +79,12 @@ class Engine {
         ];
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this._buffer);
-        gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(0);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+        const positionLocation = this._shader.getAttributeLocation('a_position');
+
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl.disableVertexAttribArray(0);
+        gl.disableVertexAttribArray(positionLocation);
     }
 
     private loadShaders(): void {

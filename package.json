@@ -6,7 +6,7 @@
   "main": "index.js",
   "repository": "https://github.com/salty-max/jellyengine.git",
   "author": "salty-max <max@jellycat.fr>",
-  "license": "GNU",
+  "license": "GPL-3.0",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.13.15",
