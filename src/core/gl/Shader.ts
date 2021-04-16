@@ -1,4 +1,4 @@
-import { gl } from './GL';
+import { gl } from './gl';
 
 /**
  * @desc Represents a WebGL shader

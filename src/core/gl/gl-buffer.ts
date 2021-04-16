@@ -1,4 +1,4 @@
-import { gl, GLUtils } from './GL';
+import { gl, GLUtils } from './gl';
 
 /**
  * @desc Represents the information needed for a GLBuffer attribute

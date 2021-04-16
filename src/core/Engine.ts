@@ -1,8 +1,8 @@
-import { Autobind } from '../utils/Autobind';
+import { Autobind } from '../utils/autobind';
 import { Color } from '../utils/palette';
-import { gl, GLUtils } from './gl/GL';
-import { AttributeInfo, GLBuffer } from './gl/GLBuffer';
-import { Shader } from './gl/Shader';
+import { gl, GLUtils } from './gl/gl';
+import { AttributeInfo, GLBuffer } from './gl/gl-buffer';
+import { Shader } from './gl/shader';
 
 /**
  * @desc The Engine takes care of the main game loop
