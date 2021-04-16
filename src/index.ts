@@ -1,4 +1,4 @@
-import Engine from './lib/Engine';
+import Engine from './core/Engine';
 
 const engine: Engine = new Engine();
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> core/gl/GL.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,38 +79,66 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>core/gl/GL.ts</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>JELLY ENGINE</h1>
-<p>A 2D game engine built with WebGL and Typescript</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @desc The WebGL rendering context
+ * @type {WebGLRenderingContext}
+ */
+export let gl: WebGLRenderingContext;
+
+/**
+ * @desc Responsible for setting up a WebGL rendering context
+ */
+export class GLUtils {
+    /**
+     * @static
+     * @desc Initializes WebGL
+     * @param {string|undefined} [elementId] The HTML element to render into
+     * @param {number|undefined} [width] The canvas width
+     * @param {number|undefined} [height] The canvas height
+     * @return {HTMLCanvasElement} The canvas where WebGL is rendered into
+     */
+    public static initialize(
+        elementId?: string,
+        width?: number,
+        height?: number,
+    ): HTMLCanvasElement {
+        let canvas: HTMLCanvasElement;
+
+        if (elementId !== undefined) {
+            canvas = document.getElementById(elementId) as HTMLCanvasElement;
+
+            if (!canvas) {
+                throw new Error(`Cannot find a canvas element named ${elementId}`);
+            }
+        } else {
+            canvas = document.createElement('canvas') as HTMLCanvasElement;
+            canvas.width = width || window.innerWidth;
+            canvas.height = height || window.innerHeight;
+            document.body.appendChild(canvas);
+        }
+
+        gl = canvas.getContext('webgl')!;
+
+        if (!gl) {
+            throw new Error('Unable to initialize WebGL');
+        }
+
+        return canvas;
+    }
+}
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

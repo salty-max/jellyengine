@@ -26,7 +26,7 @@ export class GLUtils {
         if (elementId !== undefined) {
             canvas = document.getElementById(elementId) as HTMLCanvasElement;
 
-            if (canvas === undefined) {
+            if (!canvas) {
                 throw new Error(`Cannot find a canvas element named ${elementId}`);
             }
         } else {
@@ -38,7 +38,7 @@ export class GLUtils {
 
         gl = canvas.getContext('webgl')!;
 
-        if (gl === undefined) {
+        if (!gl) {
             throw new Error('Unable to initialize WebGL');
         }
 
